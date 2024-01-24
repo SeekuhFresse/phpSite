@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJ-Writing</title>
+  <style>
+    /* CSS code for the writing page */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #343434;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    header img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #555;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    main h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    main input {
+      display: block;
+      width: 80%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    main input:focus {
+      border-color: #343434;
+    }
+
+    main select {
+      display: block;
+      width: 80%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    main select:focus {
+      border-color: #343434;
+    }
+
+    main .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-gap: 20px;
+      width: 80%;
+    }
+
+    main .grid .text {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    main .grid .text h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    main .grid .text p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    main .grid .text span {
+      font-size: 12px;
+      color: #343434;
+      align-self: flex-end;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: #343434;
+      color: white;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin: 50px auto;
+      padding: 20px;
+      width: 80%;
+      max-height: 80%;
+      overflow-y: auto;
+      background-color: white;
+    }
+
+    .modal-content h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .modal-content p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-content span {
+      font-size: 14px;
+      color: #343434;
+      align-self: flex-end;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 32px;
+      color: #343434;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PeanutButter n' Jelly Writing</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="writing.html">Writing</a>
+      <a href="random.html">Random</a>
+    </nav>
+    <img src="image.jpg" alt="Image">
+  </header>
+  <main>
+    <h2>Our Writing</h2>
+    <input type="text" id="search" placeholder="Search by title...">
+    <select id="filter">
+      <option value="all">All categories</option>
+      <option value="essay">Essay</option>
+      <option value="story">Story</option>
+      <option value="article">Article</option>
+    </select>
+    <div class="grid" id="grid">
+    </div> 
+  </main>
+  <footer>
+    <p>© 2023 PBnJ Limited & APS & Stiftung & e.V. & FLINTA & Co. KG. All rights reserved. | Contact me at <a href="mailto:paul@arbus.today">paul@arbus.today</a></p>
+  </footer>
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modal-content">
+      <!--  full textdynamically added here -->
+      <span class="close" id="close">×</span>
+    </div>
+  </div>
+  <script> 
+    // An array of objects to store the texts
+const texts = [
+{
+  title: "Why I Love Minimalism",
+  category: "Essay",
+  summary: "sty...",
+  content: "...t."
+},
+{
+  title: "The Last Day",
+  category: "Story",
+  summary: "summary",
+  content: "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
+}
+]
+const filter = document.getElementById("filter");// get the filter select element by id
+const grid = document.getElementById("grid"); // get the grid element by id 
+
+
+
+//-----------Filter and grid------------------
+// define a function to filter the texts by category
+function filterTexts(filterValue) {
+  // if the filter value is "all", return the original texts array
+  if (filterValue === "all") {
+    return texts;
+  }
+  // otherwise, use the filter() method to create a new array of texts that have the same category as the filter value
+  else {
+    return texts.filter(function(text) {
+      // convert both strings to lowercase and compare them
+      return text.category.toLowerCase() === filterValue.toLowerCase();
+    });
+  }
+}
+
+
+
+function displayTexts(textsArray) { //define a function to display the texts on the grid
+  grid.innerHTML = ""; // clear the grid content
+  let textElements = textsArray.map(function(text, key) {//use the map() method to reate an array of HTML elements from the texts array
+    let textDiv = document.createElement("div");//create a div element for each text
+    textDiv.id = key;// assign an id to the text div
+    textDiv.classList.add("text", text.category);//add the text and category classes to the text div
+    textDiv.setAttribute("data-category", text.category);//set the data-category attribute to the text category
+    let textTitle = document.createElement("h3"); //create an h3 element for the text title
+    textTitle.textContent = text.title;//set the text content of the h3 element to the text title
+    textTitle.addEventListener("click", function() {showText(key);});// add a click event listener to the text title
+    textDiv.appendChild(textTitle);//append the h3 element to the text div
+    let textSummary = document.createElement("p");//create a p element for the text summary
+    textSummary.textContent = text.summary;//set the text content of the p element to the text summary
+    textDiv.appendChild(textSummary);//append the p element to the text div
+    let textCategory = document.createElement("span");//create a span element for the text category
+    textCategory.textContent = text.category;//set the text content of the span element to the text category
+    textDiv.appendChild(textCategory);//append the span element to the text div
+    return textDiv;//return the text div as the result
+
+  });
+  // append the text elements to the grid
+  textElements.forEach(function(element) {
+    grid.appendChild(element);
+  });
+}
+
+filter.addEventListener("change", function() {// add a change event listener to the filter select element
+  let filterValue = filter.value;// get the filter value from the select element
+  let filteredTexts = filterTexts(filterValue);// call the filter function with the filter value and store the result in a variable
+  displayTexts(filteredTexts);// display the filtered texts on the grid
+  localStorage.setItem("filterValue", filterValue);// store the filter value in the localStorage
+
+});
+
+window.onload = function() {// when the page is loaded, check if there is a filter value stored in the localStorage
+  let filterValue = localStorage.getItem("filterValue");  // get the filter value from the localStorage
+  // if there is a filter value, set the filter select element to that value
+  if (filterValue) {
+    filter.value = filterValue;
+  }
+  // else, set the filter select element to "all"
+  else {
+    filter.value = "all";
+  }
+  let filteredTexts = filterTexts(filterValue);// call the filter function with the filter value and store the result in a variable
+  displayTexts(filteredTexts);// display the filtered texts on the grid
+};
+
+
+//----search---
+function search() {//define a search function 
+  let input = document.getElementById("search").value.toLowerCase();//get the value of the input element and convert it to lowercase
+  let elements = document.getElementsByClassName("text");//get the elements that you want to search by a class name or a tag name
+  // loop through the elements
+  for (let i = 0; i < elements.length; i++) {
+    let title = elements[i].getElementsByTagName("h3")[0].textContent;//get the title of the element
+    title = title.toLowerCase();//convert the title to lowercase
+    // check if the input value is a substring/part of the title
+    if (title.indexOf(input) > -1) {
+      elements[i].style.display = "";// display the element
+    } else {
+      elements[i].style.display = "none";// hide the element
+    }
+  }
+}
+
+const input = document.getElementById("search");// get the input element by id
+input.addEventListener("keyup", function() {//keyup event listener to the input element
+  search();// call the search function
+
+});
+
+
+//-------Modal display-------
+
+//a  function to show the full text in the modal
+function showText(key) {
+  const modal = document.getElementById("modal");//get the modal element by id
+  const modalContent = document.getElementById("modal-content");//get the modal content element by id
+  const close = document.getElementById("close");//get the close button element by id
+  modalContent.innerHTML = "";//clear the modal content element
+  let textTitle = document.createElement("h3");//create an h3 element for the text title
+  textTitle.textContent = texts[key].title;//set the text content of the h3 element to the text title
+  modalContent.appendChild(textTitle);//append the h3 element to the modal content element
+  let textContent = document.createElement("p");//create a p element for the text content
+  textContent.textContent = texts[key].content;//set the text content of the p element to the text content
+  modalContent.appendChild(textContent);//append the p element to the modal content element
+  let textCategory = document.createElement("span");//create a span element for the text category
+  textCategory.textContent = texts[key].category;//set the text content of the span element to the text category
+  modalContent.appendChild(textCategory);//append the span element to the modal content element
+  modalContent.appendChild(close);//append the close button element to the modal content element
+  modal.style.display = "block";//display the modal element
+  // add a click event listener to the close button element
+  close.addEventListener("click", function() {
+    modal.style.display = "none";//hide the modal element
+  });
+}
+</script>
