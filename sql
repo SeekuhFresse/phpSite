@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `Autos` (
 
 INSERT INTO `Autos` (`AID`, `Hersteller`, `Model`, `Typ`, `Farbe`, `Zustand`, `Status`, `Kilometer`, `Sprit`, `Preis`, `Username`) VALUES
 ('1', 'Opel','Mijos Schrottkarre', 'Kombi', 'Braun mit Kratzer', 'Katastrophe', 'Verfügbar', '6788', 'Benzin', '20', 'Seppii');
+('2', 'Audi', 'A4', 'Limousine', 'Silber', 'Neuartig', '14','Diesel', '9900', 'Arbusto');
 
 
 
